@@ -85,7 +85,15 @@ static NSArray *supportFileFormats = nil;
 {
     if(projectPath)
     {
-        [NSTask launchedTaskWithLaunchPath:@"/usr/bin/open" arguments:@[@"-a", @"/Applications/Utilities/Terminal.app", projectPath]];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        
+        NSString *pathForFile = @"/Applications/iTerm.app";
+        
+        if (![fileManager fileExistsAtPath:pathForFile]) {
+            pathForFile = @"/Applications/Utilities/Terminal.app";
+        }
+        
+        [NSTask launchedTaskWithLaunchPath:@"/usr/bin/open" arguments:@[@"-a", pathForFile, projectPath]];
     }
 }
 
